@@ -1,3 +1,5 @@
+#Segunda actualizacion, se cambio la ventana.
+
 import tkinter as tk
 from tkinter import messagebox
 
@@ -14,7 +16,9 @@ accesorios = {
 
 
 def mostrar_info():
+    label_resultado.config(text="")
     busqueda = entrada.get().upper().strip()
+
     if busqueda in iphone:
         datos = iphone[busqueda]
         categoria = "📱IPHONE"
@@ -28,19 +32,24 @@ def mostrar_info():
     resultado = f"{categoria}: {busqueda}\n" + "-"*30 + "\n"
     for clave, valor in datos.items():
         resultado += f"🔹 {clave}: {valor}\n"
-        resultalabel_resultado.config(text=resultado)
+        label_resultado.config(text=resultado)
 
 ventana = tk.Tk()
 ventana.title("Catalogo iblue.vzla")
-ventana.geometry("1400x720")
+ventana.geometry("800x720")
+ventana.configure(padx=30,pady=30)
 
-tk.Label(ventana, text="Ingresa el nombre del producto:").pack(pady=10)
-entrada = tk.Entry(ventana)
-entrada.pack(pady=5)
+tk.Label(ventana, text="CATÁLOGO iblue.vzla", font=("Arial", 16, "bold")).pack(pady=10)
+tk.Label(ventana, text="Ingresa el nombre del producto (ej: iPhone 15):", font=("Arial",10)).pack()
 
-tk.Button(ventana, text="Buscar Especificaciones", command=mostrar_info).pack(pady=10)
+entrada = tk.Entry(ventana, font=("Arial", 12), width=30)
+entrada.pack(pady=10)
+# Permite buscar al presionar "Enter"
+entrada.bind('<Return>', lambda event: mostrar_info())
 
-label_resultado = tk.Label(ventana, text="", justify="left", font=("Arial",10))
+tk.Button(ventana, text="BUSCAR INFO", command=mostrar_info, bg="#007AFF", fg="white", font=("Arial", 10, "bold"), width=20, height=2, cursor="hand2").pack(pady=15)
+
+label_resultado = tk.Label(ventana, text="", justify="left", font=("Consolas",12), bg="#F8F9FA",relief="flat", width=40, height=10, anchor="nw", padx=15, pady=15)
 label_resultado.pack(pady=20)
 
 ventana.mainloop()
